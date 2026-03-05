@@ -2,74 +2,75 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Пошаговое построение</title>
-
+<title>Построение треугольника</title>
 <script src="https://www.geogebra.org/apps/deployggb.js"></script>
-
 </head>
+
 <body>
 
-<h2>Пошаговое построение треугольника</h2>
+<h2>Построить прямоугольный треугольник</h2>
+<p>Дано: гипотенуза c и сумма катетов d</p>
 
-<div id="ggb-element"></div>
+<div id="ggb"></div>
 
 <br>
 <button onclick="nextStep()">Следующий шаг</button>
 
-<p id="stepText">Шаг 0: нажмите кнопку</p>
+<p id="stepText">Нажмите кнопку чтобы начать построение</p>
 
 <script>
 
-var step = 0;
+let step = 0;
 
-var applet = new GGBApplet({
-    appName: "geometry",
-    width: 800,
-    height: 500,
-    showToolBar: true,
-    showAlgebraInput: false,
-    showMenuBar: false
+let applet = new GGBApplet({
+  appName: "geometry",
+  width: 800,
+  height: 500,
+  showToolBar: false,
+  showMenuBar: false,
+  showAlgebraInput: false
 }, true);
 
-window.addEventListener("load", function () {
-    applet.inject('ggb-element');
+window.addEventListener("load", () => {
+  applet.inject("ggb");
 });
-
 
 function nextStep(){
 
-    step++;
+step++;
 
-    if(step == 1){
-        ggbApplet.evalCommand("A=(0,0)");
-        document.getElementById("stepText").innerText =
-        "Шаг 1: построили точку A";
-    }
+if(step==1){
+ggbApplet.evalCommand("C=(0,0)");
+ggbApplet.evalCommand("B=(6,0)");
+document.getElementById("stepText").innerText =
+"1. Строим отрезок CB.";
+}
 
-    else if(step == 2){
-        ggbApplet.evalCommand("B=(4,0)");
-        document.getElementById("stepText").innerText =
-        "Шаг 2: построили точку B";
-    }
+else if(step==2){
+ggbApplet.evalCommand("Segment(C,B)");
+document.getElementById("stepText").innerText =
+"2. Это часть суммы катетов.";
+}
 
-    else if(step == 3){
-        ggbApplet.evalCommand("Segment(A,B)");
-        document.getElementById("stepText").innerText =
-        "Шаг 3: провели отрезок AB";
-    }
+else if(step==3){
+ggbApplet.evalCommand("K=(-3,0)");
+ggbApplet.evalCommand("Segment(C,K)");
+document.getElementById("stepText").innerText =
+"3. Продлеваем BC и откладываем CK = AC.";
+}
 
-    else if(step == 4){
-        ggbApplet.evalCommand("C=(2,3)");
-        document.getElementById("stepText").innerText =
-        "Шаг 4: построили точку C";
-    }
+else if(step==4){
+ggbApplet.evalCommand("A=(0,3)");
+document.getElementById("stepText").innerText =
+"4. Строим точку A так, чтобы ∠ACB = 90°.";
+}
 
-    else if(step == 5){
-        ggbApplet.evalCommand("Segment(A,C)");
-        ggbApplet.evalCommand("Segment(B,C)");
-        document.getElementById("stepText").innerText =
-        "Шаг 5: получили треугольник ABC";
-    }
+else if(step==5){
+ggbApplet.evalCommand("Segment(A,C)");
+ggbApplet.evalCommand("Segment(A,B)");
+document.getElementById("stepText").innerText =
+"5. Получаем прямоугольный треугольник ABC.";
+}
 
 }
 
