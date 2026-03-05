@@ -15,6 +15,7 @@
 
 <br>
 <button onclick="nextStep()">Следующий шаг</button>
+<button onclick="downStep()">Предыдущий шаг</button>
 
 <p id="stepText">Нажмите кнопку чтобы начать построение</p>
 
@@ -34,11 +35,7 @@ let applet = new GGBApplet({
 window.addEventListener("load", () => {
   applet.inject("ggb");
 });
-
-function nextStep(){
-
-step++;
-
+function checker(){
 if(step==1){
 ggbApplet.evalCommand("C=(0,0)");
 ggbApplet.evalCommand("B=(6,0)");
@@ -70,6 +67,15 @@ ggbApplet.evalCommand("Segment(A,C)");
 ggbApplet.evalCommand("Segment(A,B)");
 document.getElementById("stepText").innerText =
 "5. Получаем прямоугольный треугольник ABC.";
+}
+function nextStep(){
+
+step++;
+checker();
+}
+function downStep(){
+  step--;
+  checker();
 }
 
 }
